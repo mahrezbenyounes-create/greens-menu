@@ -1,0 +1,66 @@
+﻿<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,user-scalable=yes">
+<meta name="theme-color" content="#073d27">
+<title>GREENS — Menu</title>
+<style>
+:root{--g:#073d27;--l:#c7df2f;--ink:#101712}
+*{box-sizing:border-box}
+html,body{margin:0;background:#f7f8f2;color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+#intro{position:fixed;inset:0;z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;background:radial-gradient(circle at 50% 35%,#1a5638 0,#073d27 58%,#032718 100%);color:#fff;transition:opacity .7s ease,visibility .7s ease}
+#intro.hide{opacity:0;visibility:hidden}
+.logo-box{width:min(82vw,470px);padding:18px 24px;background:white;border-radius:24px;box-shadow:0 24px 80px rgba(0,0,0,.32);animation:float 1.7s ease-in-out infinite}
+.logo-box img{display:block;width:100%;height:auto}
+.welcome{margin-top:28px;font-size:clamp(28px,8vw,52px);font-weight:800;text-align:center}
+.sub{margin-top:7px;color:var(--l);font-size:clamp(20px,5vw,30px);font-style:italic;animation:pulse 1.25s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes pulse{0%,100%{opacity:.68}50%{opacity:1}}
+header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.95);border-bottom:1px solid #dce3d9;padding:10px 14px}
+.head{max-width:980px;margin:auto;display:flex;align-items:center;gap:12px}
+.head img{width:150px;max-width:48vw;height:50px;object-fit:contain}
+.head div{margin-left:auto;text-align:right}
+.head b{display:block;color:var(--g)}
+.head small{color:#67756b}
+main{max-width:980px;margin:auto;padding:16px 12px 42px}
+.hero{padding:15px 18px;margin-bottom:16px;border-radius:18px;background:linear-gradient(110deg,var(--g),#17603d);color:white}
+.hero b{font-size:22px}.hero span{display:block;color:#e7efb0;margin-top:3px}
+.grid{display:grid;gap:16px}
+.card{overflow:hidden;background:white;border-radius:17px;border:1px solid #dce5da;box-shadow:0 10px 30px rgba(7,61,39,.09)}
+.card-title{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;color:var(--g);font-weight:800}
+.card-title em{font-style:normal;font-size:12px;padding:6px 9px;border-radius:999px;background:var(--l);color:#172313}
+.card img{display:block;width:100%;height:auto}
+footer{text-align:center;color:#718078;font-size:12px;padding:4px 16px 28px}
+@media(prefers-reduced-motion:reduce){.logo-box,.sub{animation:none}}
+</style>
+</head>
+<body>
+<div id="intro">
+  <div class="logo-box"><img src="assets/greens_logo.jpg" alt="GREENS"></div>
+  <div class="welcome">Bienvenue chez GREENS</div>
+  <div class="sub">Bon app&#233;tit !</div>
+</div>
+<header><div class="head"><img src="assets/greens_logo.jpg" alt="GREENS"><div><b>Menu digital</b><small>Le goût nous rassemble</small></div></div></header>
+<main>
+  <div class="hero"><b>Bienvenue 👋</b><span>Touchez un menu pour l'agrandir.</span></div>
+  <div id="grid" class="grid"></div>
+</main>
+<footer>GREENS • Simple Food • Great Moments</footer>
+<script>
+const menus=[{"file":"01_salades_extras.png","title":"Salades \u0026 Extras"},{"file":"02_specialites_pates.png","title":"Spécialités \u0026 Pâtes"},{"file":"03_pizza_sandwich.png","title":"Pizza \u0026 Sandwich"}];
+const grid=document.getElementById('grid');
+menus.forEach((m,i)=>{
+  const card=document.createElement('section');card.className='card';
+  const h=document.createElement('div');h.className='card-title';
+  const title=document.createElement('span');title.textContent=m.title||('Menu '+(i+1));
+  const tag=document.createElement('em');tag.textContent='Agrandir';
+  h.append(title,tag);
+  const a=document.createElement('a');a.href='menus/'+m.file;a.target='_blank';a.rel='noopener';
+  const img=document.createElement('img');img.src='menus/'+m.file;img.alt=title.textContent;img.loading=i===0?'eager':'lazy';
+  a.append(img);card.append(h,a);grid.append(card);
+});
+setTimeout(()=>document.getElementById('intro').classList.add('hide'),2200);
+</script>
+</body>
+</html>
